@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Title and favicon -->
+  <title>Login - Voltage</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- Preconnect and fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Work+Sans:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Work Sans', 'Noto Sans', 'sans-serif'],
+          },
+          colors: {
+            primary: '#1972e6',
+            background: '#111822',
+            accent: '#243347',
+            textSecondary: '#93aac8',
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-white font-sans">
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <!-- Header -->
+    <header class="w-full p-4 pb-2 flex justify-center">
+      <h2 class="text-lg font-bold tracking-tight">VOLTAGE</h2>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-sm px-4">
+      <h1 class="text-2xl font-bold text-center mb-5">Enter your PIN</h1>
+      <form id="pin-form" class="flex flex-col items-center">
+        <div class="flex space-x-4 mb-5">
+          <!-- PIN Inputs -->
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter first digit"
+          />
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter second digit"
+          />
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter third digit"
+          />
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter fourth digit"
+          />
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter fifth digit"
+          />
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            class="pin-input h-14 w-12 text-center rounded-xl bg-accent border-2 border-transparent focus:border-primary text-base text-white"
+            aria-label="Enter sixth digit"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full h-10 rounded-xl bg-primary text-white font-bold"
+        >
+          Login
+        </button>
+      </form>
+    </main>
+  </div>
+
+  <!-- JavaScript -->
+<script>
+    // Get all the input fields
+    const inputs = document.querySelectorAll('.pin-input');
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+            const value = e.target.value;
+            if (value.length > 1) {
+                e.target.value = value.slice(0, 1);
+            }
+            if (value.match(/^\d$/)) {
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            } else {
+                e.target.value = '';
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                inputs[index - 1].focus();
+            } else if (e.key === 'ArrowLeft' && index > 0) {
+                inputs[index - 1].focus();
+            } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+    });
+
+    // Handle form submission and PIN validation
+    document.getElementById('pin-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const enteredPin = Array.from(inputs).map(input => input.value).join('');
+        const correctPin = "789891";
+
+        if (enteredPin === correctPin) {
+            window.location.href = "saleEntryPage.html";
+        } else {
+            alert("Incorrect PIN. Please try again.");
+            inputs.forEach(input => input.value = '');  // Clear all inputs
+            inputs[0].focus();  // Focus back on the first input
+        }
+    });
+</script>
+
+  <script>
+    // Get all the input fields
+    const inputs = document.querySelectorAll('.pin-input');
+
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        if (value.length > 1) {
+          e.target.value = value.slice(0, 1);
+        }
+        if (value.match(/^\d$/)) {
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        } else {
+          e.target.value = '';
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+          inputs[index - 1].focus();
+        } else if (e.key === 'ArrowLeft' && index > 0) {
+          inputs[index - 1].focus();
+        } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+    });
+
+    // Handle form submission
+    document.getElementById('pin-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pin = Array.from(inputs).map(input => input.value).join('');
+      // Implement login functionality here
+      alert('Entered PIN: ' + pin);
+    });
+  </script>
+</body>
+</html>
